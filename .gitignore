@@ -1,0 +1,26 @@
+# Dependencies
+node_modules/
+
+# Build + test output
+dist/
+coverage/
+*.tsbuildinfo
+
+# Caches
+.eslintcache
+
+# Logs & OS cruft
+*.log
+npm-debug.log*
+.DS_Store
+
+# Editor
+.idea/
+*.swp
+
+# package-lock.json is intentionally committed (npm ci depends on it).
+
+# Nousix engine runtime artifacts (never publish)
+.hal_mcp_config.json
+**/.claude/
+taskflow/**/.claude/

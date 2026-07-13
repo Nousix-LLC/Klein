@@ -1,0 +1,8 @@
+error[E3009]: division by zero
+ --> examples/errors_divzero.kl:8:10
+  |
+8 |   return a / b;
+  |          ^^^^^
+stack traceback (innermost last):
+    at <script> (examples/errors_divzero.kl:7:1)
+    at ratio (examples/errors_divzero.kl:12:9)

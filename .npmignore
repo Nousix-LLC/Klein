@@ -1,0 +1,30 @@
+# What NOT to publish to npm. The shipped package is the Klein interpreter +
+# its contracts + bin + docs; everything below is development- or
+# orchestration-only.
+
+# Kernel orchestration scaffolding
+SUBTASK_*/
+**/_GLOBAL.md
+**/_BRIEF.md
+**/SUSPENSION.md
+**/SYNTHESIS.md
+**/COMPLETE.md
+**/FAILURE.md
+
+# Dev tooling & config
+.github/
+tsconfig.json
+tsconfig.build.json
+eslint.config.js
+vitest.config.ts
+.prettierrc.json
+.prettierignore
+.gitignore
+.eslintcache
+
+# Tests & coverage
+tests/
+coverage/
+**/*.test.ts
+**/*.spec.ts
+*.tsbuildinfo

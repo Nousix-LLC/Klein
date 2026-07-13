@@ -1,0 +1,8 @@
+// Intentional faults (syntax phase) — the front end is error-TOLERANT: the
+// parser recovers and reports MULTIPLE diagnostics in a single run rather than
+// dying on the first one. A program that fails to parse is never executed, so
+// its stdout golden is empty.
+
+let x = ;         // missing expression after '='
+let y = (1 + );   // missing right operand of '+'
+println(x + y);   // never executed — parse errors short-circuit the run

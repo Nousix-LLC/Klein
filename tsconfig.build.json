@@ -1,0 +1,19 @@
+{
+  // Production build/type-check configuration: `npm run build`.
+  // Narrows the base config to shipped sources only (src/ + the contracts/
+  // schema they compose against) — no tests, no config files. This is the gate
+  // that must stay green as each pipeline stage lands its src/ subtree.
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": true
+  },
+  "include": ["src", "contracts"],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "coverage",
+    "tests",
+    "**/*.test.ts",
+    "**/*.spec.ts"
+  ]
+}

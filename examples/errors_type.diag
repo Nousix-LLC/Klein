@@ -1,0 +1,7 @@
+error[E3002]: operator '+' requires two numbers or two strings, got number and string
+ --> examples/errors_type.kl:9:11
+  |
+9 | let bad = 1 + "two"; // number + string -> type mismatch
+  |           ^^^^^^^^^
+stack traceback (innermost last):
+    at <script> (examples/errors_type.kl:8:1)

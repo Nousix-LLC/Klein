@@ -1,0 +1,26 @@
+// Higher-order functions — map / filter / reduce over a range, plus a
+// user-supplied comparator for a non-destructive sort.
+//
+// Demonstrates: the `range`, `map`, `filter`, `reduce`, `sort`, and `join`
+// builtins driving user-written `fn` expressions through the interpreter's own
+// call machinery (correct scope, arity checking, stack frames all for free).
+
+let nums = range(1, 11); // [1, 2, 3, ..., 10]
+
+// Square every element (map applies a one-argument callback).
+let squares = map(nums, fn(x) { return x * x; });
+println("squares:           " + join(squares, ", "));
+
+// Keep only the even squares (filter applies a predicate).
+let evens = filter(squares, fn(x) { return x % 2 == 0; });
+println("even squares:      " + join(evens, ", "));
+
+// Fold them into a sum (reduce folds left from an initial accumulator).
+let total = reduce(evens, fn(acc, x) { return acc + x; }, 0);
+println("sum of even squares: " + str(total));
+
+// Sort descending with a custom comparator; sort returns a fresh array and
+// leaves `squares` untouched.
+let descending = sort(squares, fn(x, y) { return y - x; });
+println("descending:        " + join(descending, ", "));
+println("original intact:   " + join(squares, ", "));

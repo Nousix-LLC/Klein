@@ -1,0 +1,24 @@
+// Strings — the string and conversion builtins working together.
+//
+// Demonstrates: `trim`/`upper`/`lower`, `split`/`join`, `chars`, `ord`/`chr`
+// round-tripping, `contains`, and `slice` over a string. All string handling is
+// by Unicode code point, so `len`, `chars`, and `ord`/`chr` agree.
+
+let greeting = "  Hello, Klein!  ";
+println("trimmed: '" + trim(greeting) + "'");
+println("upper:   " + upper(trim(greeting)));
+println("lower:   " + lower(trim(greeting)));
+
+// Split into words, then re-join with a different separator.
+let words = split(trim("the quick brown fox"), " ");
+println("word count: " + str(len(words)));
+println("hyphenated: " + join(words, "-"));
+
+// Characters and code points round-trip.
+println("chars of 'abc': " + join(chars("abc"), " "));
+println("ord('A') = " + str(ord("A")));
+println("chr(66)  = " + chr(66));
+
+// Membership and slicing.
+println("contains 'Klein'? " + str(contains("Hello, Klein!", "Klein")));
+println("slice(0, 5): " + slice("Hello, Klein!", 0, 5));

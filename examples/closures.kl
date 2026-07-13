@@ -1,0 +1,32 @@
+// Closures — functions capture their defining scope by reference.
+//
+// Demonstrates: `fn` expressions returned from functions, private per-instance
+// state (each counter owns its own `n`), and partial application over a
+// captured parameter.
+
+// A counter factory: each returned closure owns a private `n`.
+fn makeCounter() {
+  let n = 0;
+  return fn() {
+    n = n + 1;
+    return n;
+  };
+}
+
+// An adder factory: the returned closure captures `amount` by reference.
+fn makeAdder(amount) {
+  return fn(x) {
+    return x + amount;
+  };
+}
+
+let a = makeCounter();
+let b = makeCounter();
+println(a()); // 1 — independent state
+println(a()); // 2
+println(b()); // 1 — b has its own counter, untouched by a
+
+let add10 = makeAdder(10);
+let add100 = makeAdder(100);
+println(add10(5));  // 15
+println(add100(5)); // 105

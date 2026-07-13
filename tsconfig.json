@@ -1,0 +1,61 @@
+{
+  // Base TypeScript configuration — the single source of truth for how every
+  // Klein source file (and the read-only contracts/ schema) is type-checked.
+  // Used by the editor, `npm run typecheck`, ESLint's type-aware rules, and
+  // Vitest. `tsconfig.build.json` narrows this to production sources.
+  //
+  // NOTE ON moduleResolution (deliberate, documented in scaffold COMPLETE.md):
+  // the read-only contracts/ use extensionless relative imports
+  // (`export * from "./tokens"`). Pure `NodeNext` rejects those at compile time
+  // (TS2835) and plain Node ESM rejects them at runtime — and contracts/ may not
+  // be modified. We therefore use `bundler` resolution, paired with an
+  // esbuild-based runtime (Vitest + tsx), and keep ESM ("type":"module").
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2022"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+
+    // --- Strictness (maximal set compatible with the read-only contracts) ---
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "forceConsistentCasingInFileNames": true,
+    // `verbatimModuleSyntax` is intentionally NOT enabled: the read-only
+    // contracts/ import types without `import type`, which that flag forbids
+    // (TS1484). `isolatedModules` gives us the esbuild-safety guarantee instead.
+
+    // --- Module / interop ---
+    "isolatedModules": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+
+    // --- Emit: this is a type-check gate; runnable output is produced by the
+    // esbuild-based runtime (Vitest/tsx) or a bundle step, not by tsc, because
+    // the read-only contracts' extensionless imports are not plain-Node-runnable.
+    "noEmit": true,
+
+    // --- Path aliases (compile-time half; the runtime half lives in
+    // vitest.config.ts and tsx's tsconfig-paths support). ---
+    "types": ["node"],
+    "baseUrl": ".",
+    "paths": {
+      "@contracts": ["contracts/index.ts"],
+      "@contracts/*": ["contracts/*"],
+      "@core": ["src/core/index.ts"],
+      "@core/*": ["src/core/*"]
+    }
+  },
+  // contracts/ is included so it is type-checked as part of the project and so
+  // the aliases resolve. `src` and `tests` may be empty right now; contracts/
+  // guarantees the program is non-empty, so tsc never emits "No inputs found".
+  "include": ["src", "tests", "contracts", "vitest.config.ts"],
+  "exclude": ["node_modules", "dist", "coverage"]
+}

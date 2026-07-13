@@ -1,0 +1,10 @@
+// Intentional fault (E3002) — `+` requires two numbers or two strings, never a
+// mix. Klein performs no implicit conversions, so adding a number to a string
+// is a type mismatch.
+//
+// Output printed BEFORE the fault still appears on stdout; the diagnostic is
+// rendered to stderr. This example therefore has a non-empty stdout golden.
+
+println("starting");
+let bad = 1 + "two"; // number + string -> type mismatch
+println(bad);        // unreachable

@@ -1,0 +1,9 @@
+// Intentional fault (E3001) — a variable that was never declared with `let`.
+//
+// Assignment does NOT implicitly declare: reassigning an unknown name is a
+// source-anchored runtime error. The interpreter reports it and stops; the
+// final println is never reached.
+
+let total = 0;
+total = total + count; // `count` was never declared -> undefined variable
+println(total);        // unreachable

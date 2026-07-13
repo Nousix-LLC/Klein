@@ -1,0 +1,19 @@
+# Build + dependency artifacts
+node_modules/
+dist/
+coverage/
+package-lock.json
+*.tsbuildinfo
+
+# Read-only contract schema — vendored ground truth, not ours to reformat.
+contracts/
+
+# Kernel orchestration scaffolding (not part of the shipped package). These are
+# authored by the taskflow engine and its agents, not by the Klein toolchain.
+SUBTASK_*/
+**/_GLOBAL.md
+**/_BRIEF.md
+**/SUSPENSION.md
+**/SYNTHESIS.md
+**/COMPLETE.md
+**/FAILURE.md

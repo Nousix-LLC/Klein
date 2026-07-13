@@ -1,0 +1,28 @@
+// Data structures — insertion-ordered objects and reference-valued arrays.
+//
+// Demonstrates: object literals, member (`o.k`) and index (`o[k]`) assignment,
+// the `keys`/`values`/`has`/`len` inspection builtins, array growth with
+// `push`/`pop`, and nested indexing.
+
+// Objects preserve key insertion order; new keys append at the end.
+let user = { name: "Ada", role: "engineer" };
+user.age = 36;              // member assignment adds a key
+user["team"] = "compilers"; // index assignment with a computed key
+
+println("keys:    " + join(keys(user), ", "));
+println("values:  " + join(values(user), ", "));
+println("has age? " + str(has(user, "age")));
+println("name:    " + user.name);
+
+// Arrays are reference values; push/pop mutate in place.
+let stack = [];
+push(stack, 1);
+push(stack, 2);
+push(stack, 3);
+println("stack:   " + join(stack, ", "));
+println("popped:  " + str(pop(stack)));
+println("len:     " + str(len(stack)));
+
+// Nested structures compose naturally.
+let matrix = [[1, 2], [3, 4]];
+println("matrix[1][0]: " + str(matrix[1][0]));

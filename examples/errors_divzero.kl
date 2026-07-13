@@ -1,0 +1,12 @@
+// Intentional fault (E3009) — division by zero is a runtime error, and the
+// diagnostic carries a call stack showing where the fault occurred.
+//
+// The fault happens inside `ratio`, called from top level, so the rendered
+// diagnostic includes the runtime stack frames.
+
+fn ratio(a, b) {
+  return a / b;
+}
+
+println("computing 10 / 0");
+println(ratio(10, 0)); // division by zero inside ratio

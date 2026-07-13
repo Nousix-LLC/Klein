@@ -1,0 +1,117 @@
+# Contract manifest for the Klein interpreter decomposition.
+# Machine-checkable record of contract kind, artifact ownership, and integration
+# identities. The `integration` task verifies every clause mechanically.
+
+kind: typescript_interface
+language: TypeScript
+module_system: NodeNext (ESM)
+project_root: /home/mattm/nousix-runtime/demos/language-interpreter/interpreter
+
+# ── Contract artifacts (READ-ONLY for every descendant task) ────────────────────
+contract_artifacts:
+  - path: contracts/tokens.ts
+    declares: [Position, Span, TokenType, KEYWORDS, Token]
+  - path: contracts/ast.ts
+    declares: [NodeBase, Expression, Statement, Program, Parameter, ObjectEntry, FunctionNode]
+  - path: contracts/values.ts
+    declares: [ValueKind, Value, Environment, Arity, BuiltinValue, BuiltinImpl, BuiltinContext, Interpreter, InterpreterOptions]
+  - path: contracts/errors.ts
+    declares: [ErrorPhase, Severity, ErrorCode, StackFrame, Diagnostic, KleinError, DiagnosticFormatter]
+  - path: contracts/pipeline.ts
+    declares: [Lexer, LexResult, Parser, ParseResult, InterpretOutcome, InterpretFacadeOptions]
+  - path: contracts/index.ts
+    declares: [barrel]
+
+# ── Ownership: exactly one producer per source subtree. No overlap. ─────────────
+# Config/doc files are listed under scaffold. `src/index.ts` (public barrel) is
+# owned by cli because only it can import every real module.
+ownership:
+  scaffold:
+    task: SUBTASK_scaffold
+    owns:
+      - package.json
+      - tsconfig.json
+      - tsconfig.build.json
+      - eslint.config.js
+      - .prettierrc.json
+      - .gitignore
+      - .npmignore
+      - vitest.config.ts
+      - .github/workflows/ci.yml
+      - README.md
+      - LICENSE
+      - CHANGELOG.md
+      - docs/LANGUAGE.md
+      - docs/GRAMMAR.md
+      - "src/core/**"        # Span/Position helpers, concrete error classes, diagnostic renderer
+  lexer:
+    task: SUBTASK_lexer
+    owns:
+      - "src/lexer/**"
+      - "tests/lexer/**"
+    implements: [Lexer]
+    depends_on: [scaffold]
+  parser:
+    task: SUBTASK_parser
+    owns:
+      - "src/parser/**"
+      - "tests/parser/**"
+    implements: [Parser]
+    depends_on: [scaffold, lexer]
+  runtime:
+    task: SUBTASK_runtime
+    owns:
+      - "src/runtime/**"     # values impl, environment, interpreter/evaluator
+      - "tests/runtime/**"
+    implements: [Value, Environment, Interpreter]
+    depends_on: [scaffold, parser]
+  stdlib:
+    task: SUBTASK_stdlib
+    owns:
+      - "src/stdlib/**"
+      - "tests/stdlib/**"
+    implements: [BuiltinImpl set + registry]
+    depends_on: [runtime]
+  cli:
+    task: SUBTASK_cli
+    owns:
+      - src/index.ts         # public API barrel + interpret() facade
+      - "src/cli/**"
+      - "bin/**"
+      - "tests/cli/**"
+    implements: [InterpretOutcome facade, REPL, file runner]
+    depends_on: [stdlib]
+  integration:
+    task: SUBTASK_integration
+    owns:
+      - "examples/**"
+      - "tests/integration/**"
+      - "tests/errors/**"
+    role: synthesis + mechanical integrity verification
+    depends_on: [cli]
+
+# ── Identities: invariants the integration task asserts across combined output ──
+identities:
+  - id: compiles
+    assertion: "`tsc --noEmit` (and `tsc -p tsconfig.build.json`) succeed with zero errors."
+  - id: lints_clean
+    assertion: "`eslint .` reports zero errors."
+  - id: formatted
+    assertion: "`prettier --check .` passes."
+  - id: tests_pass
+    assertion: "`vitest run` passes with every stage's tests green."
+  - id: coverage
+    assertion: "Line coverage >= 90% across src/ (lexer, parser, runtime, stdlib)."
+  - id: contract_immutable
+    assertion: "No file under contracts/ was modified by any task after root authorship."
+  - id: ownership_respected
+    assertion: "No task wrote a path outside its declared ownership subtree."
+  - id: examples_run
+    assertion: "Every examples/*.kl runs via the CLI and matches its golden output."
+  - id: no_any_leak
+    assertion: "No `any` in public exports; `tsc` strict mode enforced."
+
+# ── Derived artifacts descendants may rely on ───────────────────────────────────
+derived_artifacts:
+  - "TokenType / ValueKind / ErrorCode enums are the single source of truth; tests key off ErrorCode, never message text."
+  - "Concrete error classes in src/core/errors.ts implement contracts/errors.ts#KleinError."

@@ -1,0 +1,30 @@
+// Fibonacci — recursion, iteration, and first-class functions.
+//
+// Demonstrates: `fn` declarations, recursion, a C-style `for` loop, `let`
+// bindings with block scope, numeric `+`/`-`, and string concatenation for
+// building the printed lines.
+
+// Classic recursive definition: functions are first-class and self-referential.
+fn fib(n) {
+  if (n < 2) {
+    return n;
+  }
+  return fib(n - 1) + fib(n - 2);
+}
+
+// Iterative variant: the same sequence in linear time, using reassignment.
+fn fibIterative(n) {
+  let a = 0;
+  let b = 1;
+  for (let i = 0; i < n; i = i + 1) {
+    let next = a + b;
+    a = b;
+    b = next;
+  }
+  return a;
+}
+
+// Print the first ten Fibonacci numbers computed both ways; the two must agree.
+for (let i = 0; i < 10; i = i + 1) {
+  println("fib(" + str(i) + ") = " + str(fib(i)) + "  (iterative: " + str(fibIterative(i)) + ")");
+}

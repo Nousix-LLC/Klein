@@ -1,0 +1,8 @@
+keys:    name, role, age, team
+values:  Ada, engineer, 36, compilers
+has age? true
+name:    Ada
+stack:   1, 2, 3
+popped:  3
+len:     2
+matrix[1][0]: 3

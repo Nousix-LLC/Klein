@@ -1,0 +1,7 @@
+error[E3001]: undefined variable 'count'
+ --> examples/errors_undefined.kl:8:17
+  |
+8 | total = total + count; // `count` was never declared -> undefined variable
+  |                 ^^^^^
+stack traceback (innermost last):
+    at <script> (examples/errors_undefined.kl:7:1)

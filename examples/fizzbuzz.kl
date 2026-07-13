@@ -1,0 +1,17 @@
+// FizzBuzz — for loops, the modulo operator, and if / else if / else chains.
+//
+// Demonstrates: `%`, chained conditionals, short-circuit-free equality, and
+// `println` stringifying a bare number (the CLI never echoes a program's final
+// value, so output must go through print/println).
+
+for (let n = 1; n <= 15; n = n + 1) {
+  if (n % 15 == 0) {
+    println("FizzBuzz");
+  } else if (n % 3 == 0) {
+    println("Fizz");
+  } else if (n % 5 == 0) {
+    println("Buzz");
+  } else {
+    println(n);
+  }
+}

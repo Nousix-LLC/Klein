@@ -1,0 +1,10 @@
+trimmed: 'Hello, Klein!'
+upper:   HELLO, KLEIN!
+lower:   hello, klein!
+word count: 4
+hyphenated: the-quick-brown-fox
+chars of 'abc': a b c
+ord('A') = 65
+chr(66)  = B
+contains 'Klein'? true
+slice(0, 5): Hello

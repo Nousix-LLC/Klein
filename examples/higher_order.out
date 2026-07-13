@@ -1,0 +1,5 @@
+squares:           1, 4, 9, 16, 25, 36, 49, 64, 81, 100
+even squares:      4, 16, 36, 64, 100
+sum of even squares: 220
+descending:        100, 81, 64, 49, 36, 25, 16, 9, 4, 1
+original intact:   1, 4, 9, 16, 25, 36, 49, 64, 81, 100

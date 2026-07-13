@@ -1,0 +1,46 @@
+[
+  {
+    "name": "fibonacci",
+    "kind": "ok"
+  },
+  {
+    "name": "fizzbuzz",
+    "kind": "ok"
+  },
+  {
+    "name": "closures",
+    "kind": "ok"
+  },
+  {
+    "name": "higher_order",
+    "kind": "ok"
+  },
+  {
+    "name": "data_structures",
+    "kind": "ok"
+  },
+  {
+    "name": "strings",
+    "kind": "ok"
+  },
+  {
+    "name": "errors_undefined",
+    "kind": "error",
+    "expectedCodes": ["E3001"]
+  },
+  {
+    "name": "errors_type",
+    "kind": "error",
+    "expectedCodes": ["E3002"]
+  },
+  {
+    "name": "errors_divzero",
+    "kind": "error",
+    "expectedCodes": ["E3009"]
+  },
+  {
+    "name": "errors_syntax",
+    "kind": "error",
+    "expectedCodes": ["E2003", "E2003"]
+  }
+]
