@@ -13,6 +13,13 @@ The full language reference lives in [`docs/LANGUAGE.md`](docs/LANGUAGE.md) and
 the formal grammar in [`docs/GRAMMAR.md`](docs/GRAMMAR.md). This README is the
 front door: what Klein is, how to run it, and how to contribute.
 
+> 🤖 **Klein was generated end-to-end by an autonomous multi-agent taskflow
+> engine from a single one-paragraph prompt — no human wrote the source.**
+> [**docs/HOW_THIS_WAS_BUILT.md**](docs/HOW_THIS_WAS_BUILT.md) shows the exact
+> prompt, how the engine decomposed and built it, and a reviewer's guide for
+> auditing AI-generated code. The full, unedited build trail is in
+> [`taskflow/`](taskflow).
+
 ## A taste of Klein
 
 Comments of the form `// => value` below show what each expression evaluates
