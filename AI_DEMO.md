@@ -7,7 +7,7 @@ how the engine turned it into a working interpreter, what came out, and — the
 part that matters most — **how to review AI-generated code like this with real
 rigor.**
 
-The complete, unedited build record is preserved in [`taskflow/`](../taskflow)
+The complete, unedited build record is preserved in [`taskflow/`](taskflow)
 (engine access tokens and agent system prompts were the only things removed
 before publishing).
 
@@ -31,7 +31,7 @@ module boundaries, the contract layer, the test strategy, and the tooling.
 
 The root agent read the prompt, judged it too large for one pass, and
 **decomposed** it. Rather than write code immediately, it first froze a shared
-**interface contract** ([`taskflow/contracts/`](../taskflow/contracts)) — the
+**interface contract** ([`taskflow/contracts/`](taskflow/contracts)) — the
 types every component must agree on (`tokens`, `ast`, `values`, `errors`, and
 the `pipeline` interfaces) — so that independent agents could build against a
 stable seam instead of each other's guesses.
@@ -72,8 +72,8 @@ GO / NO-GO verdict with cited evidence (see §4).
 A small, dynamically-typed language with a tree-walking interpreter in **strict
 TypeScript** — lexical closures, first-class functions, arrays/objects, C-style
 control flow, and first-class **source-anchored error diagnostics**. (See the
-[README](../README.md) for a language taste and the
-[language reference](LANGUAGE.md) / [grammar](GRAMMAR.md) for the full spec.)
+[README](README.md) for a language taste and the
+[language reference](docs/LANGUAGE.md) / [grammar](docs/GRAMMAR.md) for the full spec.)
 
 | | |
 |---|---|
@@ -94,7 +94,7 @@ to use it.
 
 ### 4.1 Start from the contract, not the code
 
-Read [`taskflow/contracts/`](../taskflow/contracts) first. It's the frozen spec
+Read [`taskflow/contracts/`](taskflow/contracts) first. It's the frozen spec
 every component agreed on. If the seam is sound, each component either honors it
 or it doesn't — and that's mechanically checkable, not a matter of taste.
 
@@ -147,7 +147,7 @@ column is the review.
 ### 4.5 Spend human attention where it's worth most
 
 - **Semantics** (`src/runtime/interpreter.ts`): does the language behave as the
-  [spec](LANGUAGE.md) documents — truthiness, scoping, closures, error paths?
+  [spec](docs/LANGUAGE.md) documents — truthiness, scoping, closures, error paths?
   Read the tests against the spec.
 - **Diagnostics** (`src/core/`, the stated selling point): are the errors
   actually good, and source-anchored?
@@ -173,7 +173,7 @@ column is the review.
 - **Human input:** one paragraph (§1). No design decisions.
 - **Machine:** 30 agent invocations, contract-first parallel decomposition, each
   slice self-verified, whole gated by a release-verdict agent.
-- **Audit trail:** [`taskflow/`](../taskflow) is the unedited build record
+- **Audit trail:** [`taskflow/`](taskflow) is the unedited build record
   (engine tokens + agent system prompts removed before publishing).
 - **Reproducibility:** every claim in §3–§4 is re-runnable with the commands in
   §4.3.

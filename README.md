@@ -15,7 +15,7 @@ front door: what Klein is, how to run it, and how to contribute.
 
 > 🤖 **Klein was generated end-to-end by an autonomous multi-agent taskflow
 > engine from a single one-paragraph prompt — no human wrote the source.**
-> [**docs/HOW_THIS_WAS_BUILT.md**](docs/HOW_THIS_WAS_BUILT.md) shows the exact
+> [**AI_DEMO.md**](AI_DEMO.md) shows the exact
 > prompt, how the engine decomposed and built it, and a reviewer's guide for
 > auditing AI-generated code. The full, unedited build trail is in
 > [`taskflow/`](taskflow).
